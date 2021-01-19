@@ -5,13 +5,16 @@ class LoadingScreen:
         self.bg = Entity(
             model='quad',
             color=color.black,
-            parent=self,
         )
         self.bg.scale *= 400
         self.text = Text(
             text='Loading...',
-            parent=self,
         )
+
+    def cleanDel(self):
+        destroy(self.bg)
+        destroy(self.text)
+        del self
 
 
 if __name__ == '__main__':
