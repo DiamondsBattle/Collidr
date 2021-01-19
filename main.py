@@ -8,11 +8,11 @@ def applyVideoSettings():
     window.show_ursina_splash = dev_settings['ursina_splash']
     window.fullscreen = video_settings['window_fullscreen']
     window.windowed_size = video_settings['window_size']
-
     window.vsync = video_settings['window_vsync']
     window.borderless = False
 
 def loadEntities():
+    print('loading')
     global ld_scr
     sky = Sky()
     ground = Entity(
@@ -25,12 +25,9 @@ def loadEntities():
 
 def start():
     global ld_scr
-    try:
-        t = thread.start_new_thread(function=loadEntities, args='')
-    except Exception:
-        print('unable to start a thread')
-        loadEntities()
-    print('ok')
+    print('ok1')
+    thread.start_new_thread(function=loadEntities, args='')
+    print('ok2')
 
 def update():
     pass
@@ -41,6 +38,6 @@ if __name__ == '__main__':
 
     ld_scr = LoadingScreen()
 
-    app.run()
-
     start()
+
+    app.run()
