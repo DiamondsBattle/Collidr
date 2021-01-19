@@ -5,16 +5,12 @@ from prefabs.loading_screen import LoadingScreen
 
 
 def applyVideoSettings():
-    if dev_settings['ursina_splash']:
-        window.show_ursina_splash = True
-
+    window.show_ursina_splash = dev_settings['ursina_splash']
     window.fullscreen = video_settings['window_fullscreen']
-    if not window.fullscreen:
-        window.size = video_settings['window_size']
+    window.windowed_size = video_settings['window_size']
 
     window.vsync = video_settings['window_vsync']
     window.borderless = False
-    print('ok')
 
 def loadEntities():
     global ld_scr
