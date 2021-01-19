@@ -1,6 +1,7 @@
 from ursina import *
 from direct.stdpy import thread
 from settings import video_settings, dev_settings
+from prefabs.loading_screen import LoadingScreen
 
 
 def applyVideoSettings():
@@ -12,8 +13,11 @@ def applyVideoSettings():
         window.size = video_settings['window_size']
 
     window.vsync = video_settings['window_vsync']
+    window.borderless = False
+    print('ok')
 
 def loadEntities():
+    global ld_scr
     sky = Sky()
     ground = Entity(
         model='cube',
@@ -21,19 +25,16 @@ def loadEntities():
         collider='cube',
         color=color.green,
     )
-
-
-def showLoadingScreen():
-    pass
+    ld_scr.cleanDel()
 
 def start():
-    applyVideoSettings()
-    showLoadingScreen()
+    global ld_scr
     try:
-        t = thread.start_new_thread(function=loadEntities)
+        t = thread.start_new_thread(function=loadEntities, args='')
     except Exception:
         print('unable to start a thread')
-
+        loadEntities()
+    print('ok')
 
 def update():
     pass
@@ -42,8 +43,8 @@ def update():
 if __name__ == '__main__':
     app = Ursina()
 
-    loading = LoadingScreen()
-
-    start()
+    ld_scr = LoadingScreen()
 
     app.run()
+
+    start()
