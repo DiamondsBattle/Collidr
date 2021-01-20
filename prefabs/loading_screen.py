@@ -1,4 +1,6 @@
 from ursina import *
+from tips import tips
+from random import randint
 
 class LoadingScreen:
     def __init__(self):
@@ -12,8 +14,14 @@ class LoadingScreen:
             scale=2,
             position=Vec3(.55, -.4, 0),
         )
+        self.tip = Text(
+            text='',
+            scale=1.3,
+            position=Vec3(-.75, -.11, 0)
+        )
 
         invoke(self.changeText, delay=1)
+        self.showRandomTip()
 
     def cleanDel(self):
         destroy(self.bg)
@@ -28,6 +36,11 @@ class LoadingScreen:
         else:
             self.text.text = 'Loading.'
         invoke(self.changeText, delay=1)
+
+    def showRandomTip(self):
+        r = randint(0, len(tips) - 1) # Avoid the example placeholder
+        print(r)
+        self.tip.text = tips[r]
 
 
 if __name__ == '__main__':
