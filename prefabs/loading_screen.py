@@ -4,7 +4,7 @@ class LoadingScreen:
     def __init__(self):
         self.bg = Entity(
             model='quad',
-            color=color.black,
+            texture='loading_screen',
         )
         self.bg.scale *= 400
         self.text = Text(
