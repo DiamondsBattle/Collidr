@@ -12,7 +12,6 @@ def applyVideoSettings():
     window.borderless = False
 
 def loadEntities():
-    print('loading')
     global ld_scr
     sky = Sky()
     ground = Entity(
@@ -24,10 +23,8 @@ def loadEntities():
     ld_scr.cleanDel()
 
 def start():
-    global ld_scr
-    print('ok1')
+    applyVideoSettings()
     thread.start_new_thread(function=loadEntities, args='')
-    print('ok2')
 
 def update():
     pass
