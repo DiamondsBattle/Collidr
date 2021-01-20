@@ -8,13 +8,26 @@ class LoadingScreen:
         )
         self.bg.scale *= 400
         self.text = Text(
-            text='Loading...',
+            text='Loading.',
+            scale=2,
+            position=Vec3(.55, -.4, 0),
         )
+
+        invoke(self.changeText, delay=1)
 
     def cleanDel(self):
         destroy(self.bg)
         destroy(self.text)
         del self
+
+    def changeText(self):
+        if self.text.text == 'Loading.':
+            self.text.text = 'Loading..'
+        elif self.text.text == 'Loading..':
+            self.text.text = 'Loading...'
+        else:
+            self.text.text = 'Loading.'
+        invoke(self.changeText, delay=1)
 
 
 if __name__ == '__main__':
