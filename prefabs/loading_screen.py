@@ -5,8 +5,8 @@ class LoadingScreen:
         self.bg = Entity(
             model='quad',
             texture='loading_screen',
+            scale=Vec3(15, 8.5, 0),
         )
-        self.bg.scale *= 400
         self.text = Text(
             text='Loading.',
             scale=2,
