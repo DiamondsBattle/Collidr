@@ -10,4 +10,4 @@ video_settings = {
 
 dev_settings = {
     'ursina_splash': False, # True
-                }
+}
