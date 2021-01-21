@@ -29,6 +29,7 @@ class LoadingScreen:
     def cleanDel(self):
         destroy(self.bg)
         destroy(self.loading)
+        destroy(self.tip)
         del self
 
     def changeText(self):
