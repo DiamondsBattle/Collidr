@@ -40,7 +40,7 @@ class LoadingScreen:
         invoke(self.changeText, delay=1)
 
     def showRandomTip(self):
-        r = randint(0, len(tips) - 1) # Avoid the example placeholder
+        r = randint(1, len(tips) - 1) # Avoid the example placeholder
         print(r)
         self.tip.text = tips[r]
 
