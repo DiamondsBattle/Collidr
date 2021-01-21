@@ -9,7 +9,7 @@ class LoadingScreen:
             texture='loading_screen',
             scale=Vec3(15, 8.5, 0),
         )
-        self.text = Text(
+        self.loading = Text(
             text='Loading.',
             scale=2,
             position=Vec3(.55, -.4, 0),
@@ -23,18 +23,19 @@ class LoadingScreen:
         invoke(self.changeText, delay=1)
         self.showRandomTip()
 
+        self.loading_state = 0
+        self.states = ['Loading.', 'Loading..', 'Loading...']
+
     def cleanDel(self):
         destroy(self.bg)
-        destroy(self.text)
+        destroy(self.loading)
         del self
 
     def changeText(self):
-        if self.text.text == 'Loading.':
-            self.text.text = 'Loading..'
-        elif self.text.text == 'Loading..':
-            self.text.text = 'Loading...'
-        else:
-            self.text.text = 'Loading.'
+        try:
+            self.loading.text = self.states[self.states.index(self.loading.text) + 1]
+        except Exception:
+            self.loading.text = self.states[0]
         invoke(self.changeText, delay=1)
 
     def showRandomTip(self):
