@@ -2,6 +2,7 @@ from ursina import *
 from direct.stdpy import thread
 from settings import video_settings, app_settings, dev_settings
 from prefabs.loading_screen import LoadingScreen
+from prefabs.main_menu import MainMenu
 
 
 def applyVideoSettings():
@@ -16,7 +17,7 @@ def applyAppSettings():
 
 def loadEntities():
     global ld_scr
-    for i in range(10000000): # dummy load
+    for i in range(1000000): # dummy load
         print('ok')
     sky = Sky()
     ground = Entity(
@@ -31,6 +32,11 @@ def start():
     applyAppSettings()
     applyVideoSettings()
 
+def playSingleplayer():
+    global ld_scr, mm
+    ld_scr = LoadingScreen()
+    mm.cleanDel()
+
     thread.start_new_thread(function=loadEntities, args='')
 
 def update():
@@ -40,7 +46,9 @@ def update():
 if __name__ == '__main__':
     app = Ursina()
 
-    ld_scr = LoadingScreen()
+    ld_scr = None
+
+    mm = MainMenu(sing=playSingleplayer, multi=None)
 
     start()
 
