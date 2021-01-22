@@ -17,7 +17,7 @@ def applyAppSettings():
 
 def loadEntities():
     global ld_scr
-    for i in range(100000): # dummy load
+    for i in range(1000000): # dummy load
         print('ok')
     sky = Sky()
     ground = Entity(
