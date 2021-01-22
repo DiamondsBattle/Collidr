@@ -34,10 +34,10 @@ class LoadingScreen:
 
     def changeText(self):
         try:
-            self.loading.text = self.states[self.states.index(self.loading.text) + 1]
+            self.loading.text = self.states[self.states.index(self.loading.text) + 1] if self.states.index(self.loading.text) != 2 else self.states[0]
+            invoke(self.changeText, delay=1)
         except Exception:
-            self.loading.text = self.states[0]
-        invoke(self.changeText, delay=1)
+            pass
 
     def showRandomTip(self):
         r = randint(1, len(tips) - 1) # Avoid the example placeholder
