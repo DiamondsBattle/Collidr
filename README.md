@@ -16,10 +16,11 @@
 ### Starting
 The starting of the game follows the following steps :
 1. Initializing the Ursina app : ``Ursina()``
-2. Inizializing the loading screen : ``LoadingScreen()``   
-3. Loading the app-related settings (eg. window title) : ``applyVideoSettings()``
-4. Loading the video-related settings (eg. graphics quality) : ``applyVideoSettings()``
-5. Loading the entities in a separate thread : ``loadEntities()``   
-6. Starting the app : ``app.run()``
-7. When entities finished loading, the loading screen is destroyed : ``destroy(ld_scr)``
-8. The main menu appears : ``MainMenu()``
+2. The main menu appears : ``MainMenu()``
+3. If singleplayer is selected :
+4. Inizializing the loading screen : ``LoadingScreen()``   
+5. Loading the app-related settings (eg. window title) : ``applyVideoSettings()``
+6. Loading the video-related settings (eg. graphics quality) : ``applyVideoSettings()``
+7. Loading the entities in a separate thread : ``loadEntities()``   
+8. Starting the app : ``app.run()``
+9. When entities finished loading, the loading screen is destroyed : ``destroy(ld_scr)``
