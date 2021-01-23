@@ -18,17 +18,17 @@ class HealthBar:
 
         self.changeLife()
 
+    def changeLife(self, life):
+        self.life -= life
+        c = self.getColor()
+        self.bar.animate('color', c, duration=1)
+        invoke(self.changeLife, delay=2)
+
     def getColor(self):
         for i in self.states:
             print(i)
             if i <= self.life:
                 return self.states[i]
-
-    def changeLife(self):
-        self.life -= 20
-        c = self.getColor()
-        self.bar.animate('color', c, duration=1)
-        invoke(self.changeLife, delay=2)
 
 
 if __name__ == '__main__':
