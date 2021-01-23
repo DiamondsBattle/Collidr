@@ -16,13 +16,12 @@ class HealthBar:
             5: color.red,
         }
 
-        self.changeLife()
+        self.changeLife(minus=10)
 
-    def changeLife(self, life):
-        self.life -= life
+    def changeLife(self, minus):
+        self.life -= minus
         c = self.getColor()
         self.bar.animate('color', c, duration=1)
-        invoke(self.changeLife, delay=2)
 
     def getColor(self):
         for i in self.states:
