@@ -17,9 +17,16 @@ def applyAppSettings():
 
 def loadEntities():
     global ld_scr
-    for i in range(100000): # dummy load
+    for i in range(10000): # dummy load
         print('ok')
     sky = Sky()
+    X, Y = 64, 64
+    t = Entity(
+        model=Terrain(
+            X,
+            Y,
+        )
+    )
     ground = Entity(
         model='cube',
         scale=Vec3(10, 1, 10),
