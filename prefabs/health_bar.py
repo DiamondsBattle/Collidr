@@ -1,11 +1,13 @@
 from ursina import *
 
+
 class HealthBar:
     def __init__(self):
         self.life = 100
         self.bar = Entity(
-            model='quad',
+            model=Quad(radius=.5),
             color=color.cyan,
+            scale=Vec3(7, .5, 0),
         )
 
         self.states = {
