@@ -17,6 +17,7 @@ class MainMenu:
             icon='btn_multi',
             position=Vec3(-.55, -.2, 0),
             scale=Vec3(.6, .2, 0),
+            on_click=multi,
         )
         self.settings = Button(
             texture='btn_sett',
