@@ -12,7 +12,9 @@ class Weapon(Entity):
         self.max_range = max_range
 
     def attack(self):
-        f = mouse.
+        f = mouse.hovered
+        if distance(self, f) < 10:
+            print('ok')
 
 
 class Gun(Weapon):
