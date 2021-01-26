@@ -21,11 +21,17 @@ def loadEntities():
         print('ok')
     sky = Sky()
     X, Y = 64, 64
-    t = Entity(
-        model=Terrain(
-            X,
-            Y,
-        )
+    # t = Entity(
+    #     model=Terrain(
+    #         X,
+    #         Y,
+    #     )
+    # )
+    cube = Entity(
+        model='cube',
+        position=Vec3(0, 0, 100),
+        collider='cube',
+        color=color.red,
     )
     ground = Entity(
         model='cube',
