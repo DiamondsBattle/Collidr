@@ -3,6 +3,8 @@ from direct.stdpy import thread
 from settings import video_settings, app_settings, dev_settings
 from prefabs.loading_screen import LoadingScreen
 from prefabs.main_menu import MainMenu
+from prefabs.controller import Controller
+from prefabs.weapon import Gun
 
 
 def applyVideoSettings():
@@ -39,6 +41,20 @@ def loadEntities():
         collider='cube',
         color=color.green,
     )
+    player = Controller()
+    gun = Gun(parent=player,
+              name='',
+              max_range=1000,
+              dmg=10,
+              ammo=10,
+              mag=10,
+              delay=.1,
+              auto=False,
+              semi=True,
+              mode='semi',
+              reload=2
+    )
+
     ld_scr.cleanDel()
 
 def start():
