@@ -6,18 +6,17 @@ class Controller(FPC):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.speed = 1
-
     def update(self):
-        self.speed = 1 + held_keys[keybinds['player_sprint']]
+        self.speed = 5 + held_keys[keybinds['player_sprint']] * 4
+
         self.rotation_y += mouse.velocity[0] * self.mouse_sensitivity[1]
 
         self.camera_pivot.rotation_x -= mouse.velocity[1] * self.mouse_sensitivity[0]
         self.camera_pivot.rotation_x = clamp(self.camera_pivot.rotation_x, -90, 90)
 
         self.direction = Vec3(
-            self.forward * ((held_keys[keybinds['player_forward']] - held_keys[keybinds['player_backward']]) * self.speed)
-            + self.right * ((held_keys[keybinds['player_right']] - held_keys[keybinds['player_left']]) * self.speed)
+            self.forward * (held_keys[keybinds['player_forward']] - held_keys[keybinds['player_backward']])
+            + self.right * (held_keys[keybinds['player_right']] - held_keys[keybinds['player_left']])
         ).normalized()
 
         origin = self.world_position + (self.up * .5)
@@ -44,6 +43,7 @@ class Controller(FPC):
             # if not on ground and not on way up in jump, fall
             self.y -= min(self.air_time, ray.distance - .05)
             self.air_time += time.dt * .25 * self.gravity
+            self.speed = 2
 
     def input(self, key):
         if key == keybinds['player_jump']:
