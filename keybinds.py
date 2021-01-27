@@ -10,6 +10,7 @@ keybinds = {
     'game_menu': 'escape',  # Pause the game (with menu)
     'ui_hide': 'u',  # Hide the UI elements,
     'ui_minimap': 'm', # Show/hide the minimap
-    'weapon_use': 'left_mouse',  # Use the current weapon (shoot, knife)
+    'weapon_use_semi': 'left_mouse',  # Use the current weapon (shoot, knife)
+    'weapon_use_auto': 'left_mouse_down',  # Use the current weapon (shoot, knife)
     'weapon_aim': 'right_mouse',  # Aim the current weapon (if scope is available)
 }
