@@ -1,5 +1,6 @@
 from ursina import *
 
+
 class Weapon(Entity):
     def __init__(self,
                  name, dmg,
@@ -18,6 +19,7 @@ class Weapon(Entity):
         print('ok')
         if distance(self, f) < 10:
             print('ok1')
+
 
 class Gun(Weapon):
     def __init__(self,
@@ -48,6 +50,7 @@ class Gun(Weapon):
     def reload(self):
         pass
 
+
 class SniperRifle(Gun):
     def __init__(self, **kwargs):
         super().__init__(
@@ -59,6 +62,7 @@ class SniperRifle(Gun):
             **kwargs
         )
 
+
 class AssaultRifle(Gun):
     def __init__(self, **kwargs):
         super().__init__(
@@ -69,6 +73,7 @@ class AssaultRifle(Gun):
             **kwargs
         )
 
+
 class HandGun(Gun):
     def __init__(self, **kwargs):
         super().__init__(
@@ -78,6 +83,18 @@ class HandGun(Gun):
             max_range=50,
             **kwargs
         )
+
+
+class SprayGun(Gun):
+    def __init__(self, **kwargs):
+        super().__init__(
+            auto=True,
+            semi=False,
+            mode='semi',
+            max_range=40,
+            **kwargs
+        )
+
 
 class M4(AssaultRifle):
     def __init__(self, **kwargs):
@@ -91,6 +108,19 @@ class M4(AssaultRifle):
             **kwargs
         )
 
+
+class P90(SprayGun):
+    def __init__(self, **kwargs):
+        super().__init__(
+            name='P90',
+            ammo=50,
+            mag=50,
+            reload=3.7,
+            delay=.03,
+            **kwargs
+        )
+
+
 class AWP(SniperRifle):
     def __init__(self, **kwargs):
         super().__init__(
@@ -101,6 +131,7 @@ class AWP(SniperRifle):
             delay=1,
             **kwargs
         )
+
 
 class HuntingRifle(SniperRifle):
     def __init__(self, **kwargs):
