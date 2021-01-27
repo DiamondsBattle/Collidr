@@ -13,6 +13,13 @@ class Weapon(Entity):
         self.dmg = dmg
         self.max_range = max_range
         self.delay = delay
+        self.can_attack = True
+
+    def input(self, key):
+        if self.can_attack:
+            self.attack()
+            self.can_attack = False
+            invoke(setattr(self, 'can_attack', True), delay=self.delay)
 
     def attack(self):
         f = mouse.hovered_entity
