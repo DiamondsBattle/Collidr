@@ -20,7 +20,6 @@ class Weapon(Entity):
         if distance(self, f) < 10:
             print('ok1')
 
-
 class Gun(Weapon):
     def __init__(self,
                  ammo, mag,
@@ -50,7 +49,6 @@ class Gun(Weapon):
     def reload(self):
         pass
 
-
 class SniperRifle(Gun):
     def __init__(self, **kwargs):
         super().__init__(
@@ -62,7 +60,6 @@ class SniperRifle(Gun):
             **kwargs
         )
 
-
 class AssaultRifle(Gun):
     def __init__(self, **kwargs):
         super().__init__(
@@ -72,7 +69,6 @@ class AssaultRifle(Gun):
             max_range=200,
             **kwargs
         )
-
 
 class HandGun(Gun):
     def __init__(self, **kwargs):
@@ -84,7 +80,6 @@ class HandGun(Gun):
             **kwargs
         )
 
-
 class SprayGun(Gun):
     def __init__(self, **kwargs):
         super().__init__(
@@ -94,7 +89,6 @@ class SprayGun(Gun):
             max_range=40,
             **kwargs
         )
-
 
 class M4(AssaultRifle):
     def __init__(self, **kwargs):
@@ -108,7 +102,6 @@ class M4(AssaultRifle):
             **kwargs
         )
 
-
 class P90(SprayGun):
     def __init__(self, **kwargs):
         super().__init__(
@@ -117,9 +110,9 @@ class P90(SprayGun):
             mag=50,
             reload=3.7,
             delay=.03,
+            dmg=10,
             **kwargs
         )
-
 
 class AWP(SniperRifle):
     def __init__(self, **kwargs):
@@ -129,9 +122,9 @@ class AWP(SniperRifle):
             mag=5,
             reload=2.5,
             delay=1,
+            dmg=200,
             **kwargs
         )
-
 
 class HuntingRifle(SniperRifle):
     def __init__(self, **kwargs):
@@ -142,5 +135,17 @@ class HuntingRifle(SniperRifle):
             reload=6,
             delay=2,
             dmg=160,
+            **kwargs
+        )
+
+class DEagle(HandGun):
+    def __init__(self, **kwargs):
+        super().__init__(
+            name='DEagle',
+            ammo=8,
+            mag=8,
+            reload=2,
+            delay=.5,
+            dmg=40,
             **kwargs
         )
