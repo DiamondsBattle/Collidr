@@ -3,6 +3,7 @@ keybinds = {
     'player_backward': 's',  # Walk backward
     'player_right': 'd',  # Walk right
     'player_left': 'q',  # Walk left
+    'player_sprint': 'shift', # Sprint
     'player_jump': 'space',  # Jump
     'player_interact': 'e',  # Interact
     'game_pause': 'p',  # Pause the game (no menu)
