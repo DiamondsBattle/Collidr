@@ -4,7 +4,7 @@ from settings import video_settings, app_settings, dev_settings
 from prefabs.loading_screen import LoadingScreen
 from prefabs.main_menu import MainMenu
 from prefabs.controller import Controller
-from prefabs.weapon import Gun
+from prefabs.weapon import Gun, M4
 
 
 def applyVideoSettings():
@@ -13,6 +13,7 @@ def applyVideoSettings():
     window.windowed_size = video_settings['window_size']
     window.vsync = video_settings['window_vsync']
     window.borderless = False
+    window.exit_button.input = None
 
 def applyAppSettings():
     window.title = app_settings['title']
@@ -37,23 +38,12 @@ def loadEntities():
     )
     ground = Entity(
         model='cube',
-        scale=Vec3(10, 1, 10),
+        scale=Vec3(10, 1, 100),
         collider='cube',
         color=color.green,
     )
     player = Controller()
-    gun = Gun(parent=player,
-              name='',
-              max_range=1000,
-              dmg=10,
-              ammo=10,
-              mag=10,
-              delay=.1,
-              auto=False,
-              semi=True,
-              mode='semi',
-              reload=2
-    )
+    gun = M4()
 
     ld_scr.cleanDel()
 
