@@ -1,4 +1,5 @@
 from ursina import *
+from keybinds import keybinds
 
 
 class Weapon(Entity):
@@ -16,16 +17,17 @@ class Weapon(Entity):
         self.can_attack = True
 
     def input(self, key):
-        if self.can_attack:
+        if key == keybinds['weapon_use']:
             self.attack()
-            self.can_attack = False
-            invoke(setattr(self, 'can_attack', True), delay=self.delay)
 
     def attack(self):
         f = mouse.hovered_entity
-        print('ok')
-        if distance(self, f) < 10:
-            print('ok1')
+        if f and self.can_attack:
+            dist = distance(self.position, f.position)
+            if dist < self.max_range:
+                print(f'{f.name} is in range')
+        self.can_attack = False
+        invoke(setattr(self, 'can_shoot', True), delay=self.delay)
 
 class Gun(Weapon):
     def __init__(self,
@@ -47,11 +49,13 @@ class Gun(Weapon):
         if self.ammo > self.mag:
             self.ammo = self.mag
 
-        self.shoot = self.attack
-
     def input(self, key):
-        if self.semi and self.mode == 'semi' and key == 'a':
-            self.shoot()
+        if self.semi and self.mode == 'semi' and key == keybinds['weapon_use_semi']:
+            self.attack()
+
+    def update(self):
+        if self.auto and self.mode == 'auto' and held_keys[keybinds['weapon_use_auto']]:
+            self.attack()
 
     def reload(self):
         pass
@@ -80,8 +84,8 @@ class AssaultRifle(Gun):
 class HandGun(Gun):
     def __init__(self, **kwargs):
         super().__init__(
-            auto=True,
-            semi=False,
+            auto=False,
+            semi=True,
             mode='semi',
             max_range=50,
             **kwargs
