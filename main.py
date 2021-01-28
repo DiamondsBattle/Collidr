@@ -43,7 +43,7 @@ def loadEntities():
         color=color.green,
     )
     player = Controller()
-    gun = DEagle()
+    gun = M4()
 
     ld_scr.cleanDel()
 
