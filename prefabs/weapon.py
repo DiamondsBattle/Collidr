@@ -22,12 +22,13 @@ class Weapon(Entity):
 
     def attack(self):
         f = mouse.hovered_entity
+        print('attacked')
         if f and self.can_attack:
             dist = distance(self.position, f.position)
             if dist < self.max_range:
                 print(f'{f.name} is in range')
         self.can_attack = False
-        invoke(setattr(self, 'can_shoot', True), delay=self.delay)
+        invoke(Func(setattr, self, 'can_shoot', True), delay=self.delay)
 
 class Gun(Weapon):
     def __init__(self,
