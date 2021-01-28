@@ -11,6 +11,6 @@ keybinds = {
     'ui_hide': 'u',  # Hide the UI elements,
     'ui_minimap': 'm', # Show/hide the minimap
     'weapon_use_semi': 'left mouse down',  # Use the current weapon (shoot, knife) for input()
-    'weapon_use_auto': 'left_mouse_down',  # Use the current weapon (shoot, knife) for held_keys[]
-    'weapon_aim': 'right_mouse',  # Aim the current weapon (if scope is available)
+    'weapon_use_auto': 'left mouse',  # Use the current weapon (shoot, knife) for held_keys[]
+    'weapon_aim': 'right mouse',  # Aim the current weapon (if scope is available)
 }
