@@ -22,13 +22,13 @@ class Weapon(Entity):
 
     def attack(self):
         f = mouse.hovered_entity
-        print('attacked')
-        if f and self.can_attack:
+        if f:
+            print('attacked')
             dist = distance(self.position, f.position)
             if dist < self.max_range:
                 print(f'{f.name} is in range')
         self.can_attack = False
-        invoke(Func(setattr, self, 'can_shoot', True), delay=self.delay)
+        invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
 
 class Gun(Weapon):
     def __init__(self,
@@ -45,17 +45,15 @@ class Gun(Weapon):
         self.mode = mode
         self.reload = reload
 
-        self.can_shoot = True
-
         if self.ammo > self.mag:
             self.ammo = self.mag
 
     def input(self, key):
-        if self.semi and self.mode == 'semi' and key == keybinds['weapon_use_semi']:
+        if self.semi and self.mode == 'semi' and key == keybinds['weapon_use_semi'] and self.can_attack:
             self.attack()
 
     def update(self):
-        if self.auto and self.mode == 'auto' and held_keys[keybinds['weapon_use_auto']]:
+        if self.auto and self.mode == 'auto' and held_keys[keybinds['weapon_use_auto']] and self.can_attack:
             self.attack()
 
     def reload(self):
