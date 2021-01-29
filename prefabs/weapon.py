@@ -34,17 +34,16 @@ class Gun(Weapon):
                  auto, semi,
                  mode, rld_time,
                  **kwargs):
-        super().__init__(**kwargs)
 
         self.ammo = ammo
         self.mag = mag
+        if self.ammo > self.mag:
+            self.ammo = self.mag
+
         self.auto = auto
         self.semi = semi
         self.mode = mode
         self.rld_time = rld_time
-
-        if self.ammo > self.mag:
-            self.ammo = self.mag
 
         self.ammo_counter = Text(
             text=f'{self.ammo}/{self.mag}',
@@ -52,12 +51,22 @@ class Gun(Weapon):
             position=Vec3(),
         )
 
+        super().__init__(**kwargs)
+
     def input(self, key):
-        if self.semi and self.mode == 'semi' and key == keybinds['weapon_use_semi'] and self.can_attack:
+        if self.semi and\
+                self.mode == 'semi' and\
+                key == keybinds['weapon_use_semi'] and\
+                self.can_attack and\
+                self.ammo >= 1:
             self.shoot()
 
     def update(self):
-        if self.auto and self.mode == 'auto' and held_keys[keybinds['weapon_use_auto']] and self.can_attack:
+        if self.auto and\
+                self.mode == 'auto' and\
+                held_keys[keybinds['weapon_use_auto']] and\
+                self.can_attack and\
+                self.ammo >= 1:
             self.shoot()
 
         self.ammo_counter.text = f'{self.ammo}/{self.mag}'
@@ -71,7 +80,7 @@ class Gun(Weapon):
         bullet.animate('position', Vec3(to.position), duration=distance(bullet, to))
 
     def shoot(self):
-        self.ammo -= 1 if self.ammo > 0 else 0
+        self.ammo -= 1
 
         f = mouse.hovered_entity
         if f:
