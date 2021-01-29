@@ -22,11 +22,9 @@ class Weapon(Entity):
 
     def attack(self):
         f = mouse.hovered_entity
-        if f:
-            print('attacked')
-            dist = distance(self.position, f.position)
-            if dist < self.max_range:
-                print(f'{f.name} is in range')
+        # Disgusting line of code v
+        if f and distance(self.position, f.position) <= self.max_range and f.takes_damage and f.life >= 0:
+            f.life -= self.dmg
         self.can_attack = False
         invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
 
@@ -34,7 +32,7 @@ class Gun(Weapon):
     def __init__(self,
                  ammo, mag,
                  auto, semi,
-                 mode, reload,
+                 mode, rld_time,
                  **kwargs):
         super().__init__(**kwargs)
 
@@ -43,21 +41,53 @@ class Gun(Weapon):
         self.auto = auto
         self.semi = semi
         self.mode = mode
-        self.reload = reload
+        self.rld_time = rld_time
 
         if self.ammo > self.mag:
             self.ammo = self.mag
 
+        self.ammo_counter = Text(
+            text=f'{self.ammo}/{self.mag}',
+            scale=1,
+            position=Vec3(),
+        )
+
     def input(self, key):
         if self.semi and self.mode == 'semi' and key == keybinds['weapon_use_semi'] and self.can_attack:
-            self.attack()
+            self.shoot()
 
     def update(self):
         if self.auto and self.mode == 'auto' and held_keys[keybinds['weapon_use_auto']] and self.can_attack:
-            self.attack()
+            self.shoot()
+
+        self.ammo_counter.text = f'{self.ammo}/{self.mag}'
+
+    def renderBullet(self, to):
+        bullet = Entity(
+            model='cube',
+            collider='box',
+            scale=.3,
+        )
+        bullet.animate('position', Vec3(to.position), duration=distance(bullet, to))
+
+    def shoot(self):
+        self.ammo -= 1 if self.ammo > 0 else 0
+
+        f = mouse.hovered_entity
+        if f:
+            if distance(self.position, f.position) <= self.max_range:
+                print(f'shoot to {f.name}')
+
+        if self.ammo <= 0:
+            self.reload()
+
+        self.can_attack = False
+        invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
 
     def reload(self):
-        pass
+        self.can_attack = False
+        invoke(Func(setattr, self, 'ammo', self.mag), delay=self.rld_time)
+        invoke(Func(setattr, self, 'can_attack', True), delay=self.rld_time)
 
 class SniperRifle(Gun):
     def __init__(self, **kwargs):
@@ -106,7 +136,7 @@ class M4(AssaultRifle):
             name='M4',
             ammo=30,
             mag=30,
-            reload=3,
+            rld_time=3,
             delay=.07,
             dmg=33,
             **kwargs
@@ -118,7 +148,7 @@ class P90(SprayGun):
             name='P90',
             ammo=50,
             mag=50,
-            reload=3.7,
+            rld_time=3.7,
             delay=.03,
             dmg=10,
             **kwargs
@@ -130,7 +160,7 @@ class AWP(SniperRifle):
             name='AWP',
             ammo=5,
             mag=5,
-            reload=2.5,
+            rld_time=2.5,
             delay=1,
             dmg=200,
             **kwargs
@@ -142,7 +172,7 @@ class HuntingRifle(SniperRifle):
             name='Hunting Rifle',
             ammo=10,
             mag=10,
-            reload=6,
+            rld_time=6,
             delay=2,
             dmg=160,
             **kwargs
@@ -154,7 +184,7 @@ class DEagle(HandGun):
             name='DEagle',
             ammo=8,
             mag=8,
-            reload=2,
+            rld_time=2,
             delay=.5,
             dmg=40,
             **kwargs
