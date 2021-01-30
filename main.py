@@ -23,13 +23,6 @@ def loadEntities():
     for i in range(10000): # dummy load
         print('ok')
     sky = Sky()
-    X, Y = 64, 64
-    # t = Entity(
-    #     model=Terrain(
-    #         X,
-    #         Y,
-    #     )
-    # )
     cube = Entity(
         model='cube',
         position=Vec3(0, 0, 100),
