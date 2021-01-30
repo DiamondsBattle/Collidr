@@ -22,8 +22,10 @@ class Weapon(Entity):
 
     def attack(self):
         f = mouse.hovered_entity
-        # Disgusting line of code v
-        if f and distance(self.position, f.position) <= self.max_range and f.takes_damage and f.life >= 0:
+        if f and\
+                distance(self.position, f.position) <= self.max_range and\
+                f.takes_damage and\
+                f.life >= 0:
             f.life -= self.dmg
         self.can_attack = False
         invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
