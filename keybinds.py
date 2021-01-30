@@ -13,4 +13,5 @@ keybinds = {
     'weapon_use_semi': 'left mouse down',  # Use the current weapon (shoot, knife) for input()
     'weapon_use_auto': 'left mouse',  # Use the current weapon (shoot, knife) for held_keys[]
     'weapon_aim': 'right mouse',  # Aim the current weapon (if scope is available)
+    'weapon_rld': 'r', # Reload the current weapon (if available)
 }
