@@ -32,15 +32,18 @@ class Weapon(Entity):
 
 class Gun(Weapon):
     def __init__(self,
-                 ammo, mag,
+                 mag, mag_size,
                  auto, semi,
                  mode, rld_time,
+                 ammo,
                  **kwargs):
 
-        self.ammo = ammo
         self.mag = mag
-        if self.ammo > self.mag:
-            self.ammo = self.mag
+        self.mag_size = mag_size
+        if self.mag > self.mag_size:
+            self.mag = self.mag_size
+
+        self.ammo = ammo
 
         self.auto = auto
         self.semi = semi
@@ -48,7 +51,7 @@ class Gun(Weapon):
         self.rld_time = rld_time
 
         self.ammo_counter = Text(
-            text=f'{self.ammo}/{self.mag}',
+            text=f'{self.mag}/{self.ammo}',
             scale=1,
             position=Vec3(),
         )
@@ -60,18 +63,21 @@ class Gun(Weapon):
                 self.mode == 'semi' and\
                 key == keybinds['weapon_use_semi'] and\
                 self.can_attack and\
-                self.ammo >= 1:
+                self.mag >= 1:
             self.shoot()
+
+        if key == keybinds['weapon_rld'] and self.ammo > 0:
+            invoke(self.reload, delay=self.rld_time)
 
     def update(self):
         if self.auto and\
                 self.mode == 'auto' and\
                 held_keys[keybinds['weapon_use_auto']] and\
                 self.can_attack and\
-                self.ammo >= 1:
+                self.mag >= 1:
             self.shoot()
 
-        self.ammo_counter.text = f'{self.ammo}/{self.mag}'
+        self.ammo_counter.text = f'{self.mag}/{self.ammo}'
 
     def renderBullet(self, to):
         bullet = Entity(
@@ -82,23 +88,31 @@ class Gun(Weapon):
         bullet.animate('position', Vec3(to.position), duration=distance(bullet, to))
 
     def shoot(self):
-        self.ammo -= 1
+        self.mag -= 1
 
         f = mouse.hovered_entity
         if f:
             if distance(self.position, f.position) <= self.max_range:
                 print(f'shoot to {f.name}')
 
-        if self.ammo <= 0:
-            self.reload()
-
-        self.can_attack = False
-        invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
+        if self.mag <= 0 and self.ammo > 0:
+            self.can_attack = False
+            invoke(self.reload, delay=self.rld_time)
 
     def reload(self):
-        self.can_attack = False
-        invoke(Func(setattr, self, 'ammo', self.mag), delay=self.rld_time)
-        invoke(Func(setattr, self, 'can_attack', True), delay=self.rld_time)
+        if self.ammo > 0:
+            if self.mag_size > self.ammo:
+                if self.mag > 0:
+                    dif = self.mag_size - self.mag
+                else:
+                    dif = self.ammo
+                self.ammo -= dif
+                self.mag += dif
+            elif self.mag_size == self.ammo:
+                self.mag = self.ammo
+                self.ammo = 0
+
+        self.can_attack = True
 
 class SniperRifle(Gun):
     def __init__(self, **kwargs):
@@ -145,7 +159,7 @@ class M4(AssaultRifle):
     def __init__(self, **kwargs):
         super().__init__(
             name='M4',
-            ammo=30,
+            mag_size=30,
             mag=30,
             rld_time=3,
             delay=.07,
@@ -157,7 +171,7 @@ class P90(SprayGun):
     def __init__(self, **kwargs):
         super().__init__(
             name='P90',
-            ammo=50,
+            mag_size=50,
             mag=50,
             rld_time=3.7,
             delay=.03,
@@ -169,7 +183,7 @@ class AWP(SniperRifle):
     def __init__(self, **kwargs):
         super().__init__(
             name='AWP',
-            ammo=5,
+            mag_size=5,
             mag=5,
             rld_time=2.5,
             delay=1,
@@ -181,7 +195,7 @@ class HuntingRifle(SniperRifle):
     def __init__(self, **kwargs):
         super().__init__(
             name='Hunting Rifle',
-            ammo=10,
+            mag_size=10,
             mag=10,
             rld_time=6,
             delay=2,
@@ -193,7 +207,7 @@ class DEagle(HandGun):
     def __init__(self, **kwargs):
         super().__init__(
             name='DEagle',
-            ammo=8,
+            mag_size=8,
             mag=8,
             rld_time=2,
             delay=.5,
