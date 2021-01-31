@@ -39,9 +39,8 @@ def loadEntities():
     gun = BLA44(
         ammo=25,
         parent=player,
-        position=Vec3((player.x + 1.5), (player.y + 1.5), (player.z + 2)),
+        position=Vec3((player.x + 2), (player.y + 1.5), (player.z + 3.5)),
     )
-
 
     ld_scr.cleanDel()
 
