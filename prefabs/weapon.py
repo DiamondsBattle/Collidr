@@ -101,16 +101,14 @@ class Gun(Weapon):
 
     def reload(self):
         if self.ammo > 0:
-            if self.mag_size > self.ammo:
-                if self.mag > 0:
-                    dif = self.mag_size - self.mag
+            if self.ammo < self.mag_size:
+                dif = self.mag_size - self.mag
+                if self.ammo > dif:
+                    self.mag += dif
+                    self.ammo -= dif
                 else:
-                    dif = self.ammo
-                self.ammo -= dif
-                self.mag += dif
-            elif self.mag_size == self.ammo:
-                self.mag = self.ammo
-                self.ammo = 0
+                    self.mag += self.ammo
+                    self.ammo = 0
 
         self.can_attack = True
 
