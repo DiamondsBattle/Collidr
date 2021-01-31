@@ -8,13 +8,14 @@ class Weapon(Entity):
                  delay,
                  max_range,
                  **kwargs):
-        super().__init__(**kwargs)
 
         self.name = name
         self.dmg = dmg
         self.max_range = max_range
         self.delay = delay
         self.can_attack = True
+
+        super().__init__(**kwargs)
 
     def input(self, key):
         if key == keybinds['weapon_use']:
@@ -70,6 +71,7 @@ class Gun(Weapon):
             invoke(self.reload, delay=self.rld_time)
 
     def update(self):
+        print(self.can_attack)
         if self.auto and\
                 self.mode == 'auto' and\
                 held_keys[keybinds['weapon_use_auto']] and\
@@ -78,6 +80,9 @@ class Gun(Weapon):
             self.shoot()
 
         self.ammo_counter.text = f'{self.mag}/{self.ammo}'
+
+        if self.parent.name == 'controller':
+            self.rotation_x = self.parent.rotation_x
 
     def renderBullet(self, to):
         bullet = Entity(
@@ -88,6 +93,9 @@ class Gun(Weapon):
         bullet.animate('position', Vec3(to.position), duration=distance(bullet, to))
 
     def shoot(self):
+        self.can_attack = False
+        invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
+
         self.mag -= 1
 
         f = mouse.hovered_entity
