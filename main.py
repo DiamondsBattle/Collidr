@@ -4,7 +4,7 @@ from settings import video_settings, app_settings, dev_settings
 from prefabs.loading_screen import LoadingScreen
 from prefabs.main_menu import MainMenu
 from prefabs.controller import Controller
-from prefabs.weapon import Gun, M4, DEagle
+from prefabs.weapon import Gun, BLA44, DEagle
 
 
 def applyVideoSettings():
@@ -36,7 +36,12 @@ def loadEntities():
         color=color.green,
     )
     player = Controller()
-    gun = M4(ammo=25)
+    gun = BLA44(
+        ammo=25,
+        parent=player,
+        position=Vec3((player.x + 1.5), (player.y + 1.5), (player.z + 2)),
+    )
+
 
     ld_scr.cleanDel()
 

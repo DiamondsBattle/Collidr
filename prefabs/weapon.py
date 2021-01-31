@@ -153,10 +153,14 @@ class SprayGun(Gun):
             **kwargs
         )
 
-class M4(AssaultRifle):
+class BLA44(AssaultRifle):
     def __init__(self, **kwargs):
         super().__init__(
-            name='M4',
+            model='bla-44',
+            scale=.15,
+            color=color.gray,
+            rotation_y=180,
+            name='BLA-44',
             mag_size=30,
             mag=30,
             rld_time=3,
@@ -177,10 +181,11 @@ class P90(SprayGun):
             **kwargs
         )
 
-class AWP(SniperRifle):
+class K412(SniperRifle):
     def __init__(self, **kwargs):
         super().__init__(
-            name='AWP',
+            model='K412',
+            name='K412',
             mag_size=5,
             mag=5,
             rld_time=2.5,
