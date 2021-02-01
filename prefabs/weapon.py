@@ -71,7 +71,6 @@ class Gun(Weapon):
             invoke(self.reload, delay=self.rld_time)
 
     def update(self):
-        print(self.can_attack)
         if self.auto and\
                 self.mode == 'auto' and\
                 held_keys[keybinds['weapon_use_auto']] and\
