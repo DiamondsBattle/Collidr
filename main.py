@@ -21,7 +21,7 @@ def applyAppSettings():
 def loadEntities():
     global ld_scr
     for i in range(10000): # dummy load
-        print('ok')
+        print(f'{i}/10000')
     sky = Sky()
     cube = Entity(
         model='cube',
