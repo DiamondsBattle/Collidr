@@ -7,6 +7,16 @@ class Controller(FPC):
         super().__init__(**kwargs)
 
     def update(self):
+        h = mouse.hovered_entity
+        if mouse.hovered_entity:
+            if hasattr(h, 'visible'):
+                t = Text(
+                    f'Press {keybinds["player_interact"]} to interact',
+                    parent=h,
+                    position=Vec3(h.position) + Vec3(0, h.scale, 0)
+                         )
+                t.look_at(self)
+
         self.speed = 5 + held_keys[keybinds['player_sprint']] * 4
 
         self.rotation_y += mouse.velocity[0] * self.mouse_sensitivity[1]
