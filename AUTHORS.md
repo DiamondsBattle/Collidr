@@ -7,3 +7,4 @@
 - Jean Le Jalle (@FireBlade)
 ## Model design
 - (@doomsentinel)
+- Aleksandar Popovic (@INinja)
