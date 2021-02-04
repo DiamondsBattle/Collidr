@@ -1,1 +1,2 @@
 - "Modular P90 Tactical" (https://skfb.ly/WWKM) by doomsentinel is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Building" (https://skfb.ly/6RF6C) by INinja is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).

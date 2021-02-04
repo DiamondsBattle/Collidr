@@ -13,7 +13,7 @@ class Controller(FPC):
                 t = Text(
                     f'Press {keybinds["player_interact"]} to interact',
                     parent=h,
-                    position=Vec3(h.position) + Vec3(0, h.scale, 0)
+                    position=Vec3(h.position) + Vec3(0, 1, 0)
                          )
                 t.look_at(self)
 
