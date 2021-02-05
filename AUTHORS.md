@@ -8,3 +8,4 @@
 ## Model design
 - (@doomsentinel)
 - Aleksandar Popovic (@INinja)
+- (@aitortilla01)
