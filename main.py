@@ -30,9 +30,9 @@ def loadEntities():
         color=color.red,
     )
     ground = Entity(
-        model='cube',
-        scale=Vec3(10, 1, 100),
-        collider='cube',
+        model='map2',
+        scale=.01, # Vec3(10, 1, 100),
+        collider='mesh',
         color=color.green,
     )
     player = Controller()
