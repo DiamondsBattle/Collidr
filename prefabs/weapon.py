@@ -7,7 +7,8 @@ class Weapon(Entity):
                  name, dmg,
                  delay,
                  max_range,
-                 **kwargs):
+                 **kwargs
+                 ):
 
         self.name = name
         self.dmg = dmg
@@ -34,13 +35,32 @@ class Weapon(Entity):
         self.can_attack = False
         invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
 
+class Bullet(Entity):
+    def __init__(self,
+                 max_range,
+                 speed,
+                 **kwargs
+                 ):
+
+        self.max_range = max_range
+        self.speed = speed
+
+        super().__init__(
+            model='cube',
+            scale=.3,
+            **kwargs
+        )
+
+        self.animate('forward', self.max_range, duration=(self.max_range / self.speed))
+
 class Gun(Weapon):
     def __init__(self,
                  mag, mag_size,
                  auto, semi,
                  mode, rld_time,
-                 ammo,
-                 **kwargs):
+                 ammo, blt_speed,
+                 **kwargs
+                 ):
 
         self.mag = mag
         self.mag_size = mag_size
@@ -53,6 +73,7 @@ class Gun(Weapon):
         self.semi = semi
         self.mode = mode
         self.rld_time = rld_time
+        self.sht_speed = blt_speed
 
         self.ammo_counter = Text(
             text=f'{self.mag}/{self.ammo}',
@@ -83,24 +104,18 @@ class Gun(Weapon):
 
         self.ammo_counter.text = f'{self.mag}/{self.ammo}'
 
-    def renderBullet(self, to):
-        bullet = Entity(
-            model='cube',
-            collider='box',
-            scale=.3,
-        )
-        bullet.animate('position', Vec3(to.position), duration=distance(bullet, to))
-
     def shoot(self):
         self.can_attack = False
         invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
 
         self.mag -= 1
 
-        f = mouse.hovered_entity
-        if f:
-            if distance(self.position, f.position) <= self.max_range:
-                print(f'shoot to {f.name}')
+        bullet = Bullet(
+            max_range=self.max_range,
+            speed=self.sht_speed,
+            rotation=self.rotation,
+            position=self.position,
+        )
 
         if self.mag <= 0 and self.ammo > 0:
             self.can_attack = False
@@ -127,6 +142,7 @@ class SniperRifle(Gun):
             mode='semi',
             dmg=90,
             max_range=400,
+            blt_speed=200,
             **kwargs
         )
 
@@ -137,6 +153,7 @@ class AssaultRifle(Gun):
             semi=False,
             mode='auto',
             max_range=200,
+            blt_speed=80,
             **kwargs
         )
 
@@ -146,7 +163,7 @@ class HandGun(Gun):
             auto=False,
             semi=True,
             mode='semi',
-            max_range=50,
+            max_range=60,
             **kwargs
         )
 
@@ -156,7 +173,7 @@ class SprayGun(Gun):
             auto=True,
             semi=False,
             mode='semi',
-            max_range=40,
+            max_range=90,
             **kwargs
         )
 
