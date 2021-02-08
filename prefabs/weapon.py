@@ -15,7 +15,10 @@ class Weapon(Entity):
         self.delay = delay
         self.can_attack = True
 
-        super().__init__(**kwargs)
+        super().__init__(
+            parent=camera,
+            **kwargs
+        )
 
     def input(self, key):
         if key == keybinds['weapon_use']:
@@ -79,9 +82,6 @@ class Gun(Weapon):
             self.shoot()
 
         self.ammo_counter.text = f'{self.mag}/{self.ammo}'
-
-        if self.parent.name == 'controller':
-            self.rotation_x = self.parent.rotation_x
 
     def renderBullet(self, to):
         bullet = Entity(
