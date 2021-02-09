@@ -110,11 +110,12 @@ class Gun(Weapon):
 
         self.mag -= 1
 
-        Bullet(
+        bullet = Bullet(
             max_range=self.max_range,
             speed=self.sht_speed,
             rotation=self.rotation,
             position=self.position,
+            color=color.pink,
         )
 
         if self.mag <= 0 and self.ammo > 0:
