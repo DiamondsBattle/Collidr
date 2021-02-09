@@ -35,6 +35,8 @@ def loadEntities():
         collider='mesh',
         color=color.green,
     )
+    ground2 = deepcopy(ground)
+    ground2.y = -10
     player = Controller()
     gun = BLA44(
         ammo=25,
