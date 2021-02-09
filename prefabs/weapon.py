@@ -117,6 +117,7 @@ class Gun(Weapon):
             position=self.position,
             color=color.pink,
         )
+        print(self.position)
 
         if self.mag <= 0 and self.ammo > 0:
             self.can_attack = False
