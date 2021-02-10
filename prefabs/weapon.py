@@ -51,7 +51,11 @@ class Bullet(Entity):
             **kwargs
         )
 
-        self.animate('forward', self.max_range, duration=(self.max_range / self.speed))
+        self.animate_position(
+            self.position + (self.forward + self.max_range),
+            duration=(self.max_range / self.speed),
+            curve=curve.linear,
+        )
 
 class Gun(Weapon):
     def __init__(self,
