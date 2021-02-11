@@ -48,14 +48,20 @@ class Bullet(Entity):
         super().__init__(
             model='cube',
             scale=.3,
+            world_parent=scene,
             **kwargs
         )
 
+        self.parent = None
+
+        print(f'bul : {self.position}')
+
         self.animate_position(
-            self.position + (self.forward + self.max_range),
+            self.position + (self.forward * self.max_range),
             duration=(self.max_range / self.speed),
             curve=curve.linear,
         )
+        invoke(Func(destroy, self), delay=self.max_range/self.speed)
 
 class Gun(Weapon):
     def __init__(self,
@@ -114,14 +120,13 @@ class Gun(Weapon):
 
         self.mag -= 1
 
+        print(f'gun : {self.position}')
         bullet = Bullet(
             max_range=self.max_range,
             speed=self.sht_speed,
-            rotation=self.rotation,
-            position=self.position,
+            parent=self,
             color=color.pink,
         )
-        print(self.position)
 
         if self.mag <= 0 and self.ammo > 0:
             self.can_attack = False
