@@ -49,19 +49,20 @@ class Bullet(Entity):
             model='cube',
             scale=.3,
             world_parent=scene,
+            rotation=camera.rotation,
             **kwargs
         )
 
-        self.parent = None
+        setattr(self, 'parent', scene)
 
-        print(f'bul : {self.position}')
+        a = (self.forward + self.position) + Vec3(self.max_range, self.max_range, self.max_range)
 
         self.animate_position(
-            self.position + (self.forward * self.max_range),
+            a,
             duration=(self.max_range / self.speed),
             curve=curve.linear,
         )
-        invoke(Func(destroy, self), delay=self.max_range/self.speed)
+        invoke(Func(destroy, self), delay=(self.max_range / self.speed))
 
 class Gun(Weapon):
     def __init__(self,
@@ -120,12 +121,13 @@ class Gun(Weapon):
 
         self.mag -= 1
 
-        print(f'gun : {self.position}')
         bullet = Bullet(
             max_range=self.max_range,
             speed=self.sht_speed,
-            parent=self,
+            position=self.position,
+            forward=camera.forward,
             color=color.pink,
+            parent=self,
         )
 
         if self.mag <= 0 and self.ammo > 0:
