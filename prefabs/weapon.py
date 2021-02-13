@@ -49,13 +49,11 @@ class Bullet(Entity):
             model='cube',
             scale=.3,
             world_parent=scene,
-            rotation=camera.rotation,
+            color=color.red,
             **kwargs
         )
 
-        # setattr(self, 'parent', scene)
-
-        a = self.position + (self.forward * (self.max_range * (Vec3(1, 1, 1) / self.forward)))
+        a = -(self.position + (self.forward * self.max_range * 10))
 
         self.animate_position(
             a,
@@ -64,6 +62,8 @@ class Bullet(Entity):
         )
         self.parent = scene
         invoke(Func(destroy, self), delay=(self.max_range / self.speed))
+
+    # def
 
 class Gun(Weapon):
     def __init__(self,
@@ -126,8 +126,6 @@ class Gun(Weapon):
             max_range=self.max_range,
             speed=self.sht_speed,
             position=self.position,
-            forward=camera.forward,
-            color=color.pink,
             parent=self,
         )
 
