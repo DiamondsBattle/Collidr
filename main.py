@@ -40,7 +40,7 @@ def loadEntities():
     ground2.scale = .1
     player = Controller()
     gun = BLA44(
-        ammo=25,
+        ammo=666,
         position=Vec3((player.x + 2), (player.y - .5), (player.z + 3.5)),
     )
 
