@@ -88,6 +88,8 @@ class Gun(Weapon):
         self.rld_time = rld_time
         self.sht_speed = blt_speed
 
+        self.rlding = False
+
         self.ammo_counter = Text(
             text=f'{self.mag}/{self.ammo}',
             scale=1,
@@ -104,7 +106,11 @@ class Gun(Weapon):
                 self.mag >= 1:
             self.shoot()
 
-        if key == keybinds['weapon_rld'] and self.ammo > 0:
+        if key == keybinds['weapon_rld'] and\
+                self.can_attack and\
+                not self.rlding:
+            self.can_attack = False
+            self.rlding = True
             invoke(self.reload, delay=self.rld_time)
 
     def update(self):
@@ -119,7 +125,6 @@ class Gun(Weapon):
 
     def shoot(self):
         self.can_attack = False
-        invoke(Func(setattr, self, 'can_attack', True), delay=self.delay)
 
         self.mag -= 1
 
@@ -130,11 +135,17 @@ class Gun(Weapon):
             parent=self,
         )
 
-        if self.mag <= 0 and self.ammo > 0 and not self.can_attack:
+        if self.mag <= 0 and self.ammo > 0 and\
+                not self.can_attack and\
+                not self.rlding:
+            self.can_attack = False
+            self.rlding = True
             invoke(self.reload, delay=self.rld_time)
+        else:
+            invoke(setattr, self, 'can_attack', True, delay=self.delay)
 
     def reload(self):
-        if self.ammo > 0:
+        if self.ammo > 0 and self.mag < 30:
             if self.ammo < self.mag_size:
                 dif = self.mag_size - self.mag
                 if self.ammo > dif:
@@ -144,10 +155,12 @@ class Gun(Weapon):
                     self.mag += self.ammo
                     self.ammo = 0
             else:
+                dif = self.mag_size - self.mag
                 self.mag = self.mag_size
-                self.ammo -= self.mag_size
+                self.ammo -= dif
 
         self.can_attack = True
+        self.rlding = False
 
 class SniperRifle(Gun):
     def __init__(self, **kwargs):
