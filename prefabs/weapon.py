@@ -53,15 +53,16 @@ class Bullet(Entity):
             **kwargs
         )
 
-        setattr(self, 'parent', scene)
+        # setattr(self, 'parent', scene)
 
-        a = (self.forward + self.position) + Vec3(self.max_range, self.max_range, self.max_range)
+        a = self.position + (self.forward * (self.max_range * (Vec3(1, 1, 1) / self.forward)))
 
         self.animate_position(
             a,
             duration=(self.max_range / self.speed),
             curve=curve.linear,
         )
+        self.parent = scene
         invoke(Func(destroy, self), delay=(self.max_range / self.speed))
 
 class Gun(Weapon):
@@ -144,6 +145,9 @@ class Gun(Weapon):
                 else:
                     self.mag += self.ammo
                     self.ammo = 0
+            else:
+                self.mag = self.mag_size
+                self.ammo -= self.mag_size
 
         self.can_attack = True
 
