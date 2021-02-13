@@ -63,7 +63,8 @@ class Bullet(Entity):
         self.parent = scene
         invoke(Func(destroy, self), delay=(self.max_range / self.speed))
 
-    # def
+    def on_hit(self):
+        print('ok')
 
 class Gun(Weapon):
     def __init__(self,
@@ -129,8 +130,7 @@ class Gun(Weapon):
             parent=self,
         )
 
-        if self.mag <= 0 and self.ammo > 0:
-            self.can_attack = False
+        if self.mag <= 0 and self.ammo > 0 and not self.can_attack:
             invoke(self.reload, delay=self.rld_time)
 
     def reload(self):
