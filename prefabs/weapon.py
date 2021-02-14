@@ -50,10 +50,15 @@ class Bullet(Entity):
             scale=.3,
             world_parent=scene,
             color=color.red,
+            collider='mesh',
             **kwargs
         )
 
-        a = -(self.position + (self.forward * self.max_range * 10))
+        print(self.world_position)
+
+        self.hitbox = boxcast(origin=self.world_position, thickness=1, debug=True)
+
+        a = -(self.position + (self.forward * self.max_range * 100))
 
         self.animate_position(
             a,
@@ -63,8 +68,9 @@ class Bullet(Entity):
         self.parent = scene
         invoke(Func(destroy, self), delay=(self.max_range / self.speed))
 
-    def on_hit(self):
-        print('ok')
+    def update(self):
+        if self.hitbox.hit:
+            print('ok')
 
 class Gun(Weapon):
     def __init__(self,
@@ -131,7 +137,7 @@ class Gun(Weapon):
         bullet = Bullet(
             max_range=self.max_range,
             speed=self.sht_speed,
-            position=self.position,
+            position=self.world_position,
             parent=self,
         )
 
