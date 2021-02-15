@@ -25,8 +25,8 @@ def loadEntities():
     sky = Sky()
     cube = Entity(
         model='cube',
-        position=Vec3(0, 0, 100),
-        collider='cube',
+        position=Vec3(0, 0, 10),
+        collider='box',
         color=color.red,
     )
     ground = Entity(
