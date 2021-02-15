@@ -49,14 +49,16 @@ class Bullet(Entity):
             model='cube',
             scale=.3,
             world_parent=scene,
-            color=color.red,
-            collider='mesh',
+            color=color.gray,
+            collider='box',
             **kwargs
         )
 
-        print(self.world_position)
-
-        self.hitbox = boxcast(origin=self.world_position, thickness=1, debug=True)
+        # self.hitbox = boxcast(
+        #     origin=self.world_position,
+        #     thickness=(1, 1),
+        #     debug=True,
+        # )
 
         a = -(self.position + (self.forward * self.max_range * 100))
 
@@ -69,8 +71,11 @@ class Bullet(Entity):
         invoke(Func(destroy, self), delay=(self.max_range / self.speed))
 
     def update(self):
-        if self.hitbox.hit:
-            print('ok')
+        # if self.hitbox.hit:
+        #     print(f'hit : {self.hitbox.entity}')
+        i = self.intersects().entity
+        if i: # is not None
+            print(f'hit: {i}')
 
 class Gun(Weapon):
     def __init__(self,
@@ -214,7 +219,7 @@ class SprayGun(Gun):
 class BLA44(AssaultRifle):
     def __init__(self, **kwargs):
         super().__init__(
-            model='bla-44',
+            model='temp',
             scale=.15,
             color=color.gray,
             rotation_y=180,
