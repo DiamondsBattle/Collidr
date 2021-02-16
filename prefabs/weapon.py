@@ -67,7 +67,7 @@ class Bullet(Entity):
     def update(self):
         i = self.intersects().entity
         if i: # is not None
-            print(f'hit: {i}')
+            print(f'hit: {i}') # FIX : never working
 
 class Gun(Weapon):
     def __init__(self,
