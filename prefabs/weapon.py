@@ -54,12 +54,6 @@ class Bullet(Entity):
             **kwargs
         )
 
-        # self.hitbox = boxcast(
-        #     origin=self.world_position,
-        #     thickness=(1, 1),
-        #     debug=True,
-        # )
-
         a = -(self.position + (self.forward * self.max_range * 100))
 
         self.animate_position(
@@ -71,8 +65,6 @@ class Bullet(Entity):
         invoke(Func(destroy, self), delay=(self.max_range / self.speed))
 
     def update(self):
-        # if self.hitbox.hit:
-        #     print(f'hit : {self.hitbox.entity}')
         i = self.intersects().entity
         if i: # is not None
             print(f'hit: {i}')
