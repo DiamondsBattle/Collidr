@@ -8,3 +8,5 @@
 - "Low rise wall to wall office building" (https://skfb.ly/6WOpQ) by aitortilla01 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 - "Low rise wall to wall office building" (https://skfb.ly/6TtTB) by aitortilla01 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 - "Low rise wall to wall office building" (https://skfb.ly/6T9vB) by aitortilla01 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "M4" (https://skfb.ly/6VQyH) by Positive_Jake is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).*
+- "M4A4 carbine pbr ( free model )" (https://skfb.ly/6SJGV) by javadbayat is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
