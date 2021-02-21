@@ -35,9 +35,9 @@ def loadEntities():
         collider='mesh',
         color=color.green,
     )
-    ground2 = duplicate(ground)
-    ground2.y = -10
-    ground2.scale = .1
+    # ground2 = duplicate(ground)
+    # ground2.y = -10
+    # ground2.scale = .1
     player = Controller()
     gun = BLA44(
         ammo=666,
