@@ -18,6 +18,7 @@ class Weapon(Entity):
 
         super().__init__(
             parent=camera,
+            always_on_top=True,
             **kwargs
         )
 
@@ -54,17 +55,29 @@ class Bullet(Entity):
             **kwargs
         )
 
-        a = -(self.position + (self.forward * self.max_range * 100))
+        b = -(self.position + (self.forward * self.max_range * 10))
+        print(b)
 
         self.animate_position(
-            a,
+            b,
             duration=(self.max_range / self.speed),
             curve=curve.linear,
         )
         self.parent = scene
         invoke(Func(destroy, self), delay=(self.max_range / self.speed))
 
+    def getCorrectDistance(self):
+        try:
+            a = 1 / self.forward[0]
+            b = 1 / self.forward[1]
+            c = 1 / self.forward[2]
+        except Exception:
+            return 1
+        print(((a+b+c)/3).__round__())
+        return ((a+b+c)/3).__round__()
+
     def update(self):
+        # print(self.position)
         i = self.intersects().entity
         if i: # is not None
             print(f'hit: {i}') # FIX : never working
