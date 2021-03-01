@@ -66,15 +66,15 @@ class Bullet(Entity):
         self.parent = scene
         invoke(Func(destroy, self), delay=(self.max_range / self.speed))
 
-    def getCorrectDistance(self):
-        try:
-            a = 1 / self.forward[0]
-            b = 1 / self.forward[1]
-            c = 1 / self.forward[2]
-        except Exception:
-            return 1
-        print(((a+b+c)/3).__round__())
-        return ((a+b+c)/3).__round__()
+    # def getCorrectDistance(self):
+    #     try:
+    #         a = 1 / self.forward[0]
+    #         b = 1 / self.forward[1]
+    #         c = 1 / self.forward[2]
+    #     except Exception:
+    #         return 1
+    #     print(((a+b+c)/3).__round__())
+    #     return ((a+b+c)/3).__round__()
 
     def update(self):
         # print(self.position)
