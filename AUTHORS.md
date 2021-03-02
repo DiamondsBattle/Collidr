@@ -9,3 +9,4 @@
 - (@doomsentinel)
 - Aleksandar Popovic (@INinja)
 - (@aitortilla01)
+- Esteban Eyral
