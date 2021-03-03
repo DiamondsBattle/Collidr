@@ -5,6 +5,9 @@
 - Diego Kossayan-Mari
 ## Ui design
 - Jean Le Jalle (@FireBlade)
+- Louis Jarraud (@DiamondsBattle)
+## Game Engine desing
+- Petter Hamland (@pokepetter)
 ## Model design
 - (@doomsentinel)
 - Aleksandar Popovic (@INinja)
