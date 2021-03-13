@@ -6,7 +6,7 @@
 ## Ui design
 - Jean Le Jalle (@FireBlade)
 - Louis Jarraud (@DiamondsBattle)
-## Game Engine desing
+## Game Engine
 - Petter Hamland (@pokepetter)
 ## Model design
 - (@doomsentinel)
