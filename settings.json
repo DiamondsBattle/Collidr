@@ -1,0 +1,14 @@
+{
+  "movement": {
+    "forward": "z",
+    "backward": "s",
+    "right": "d",
+    "left": "q",
+    "jump": "space",
+    "crouch": "shift"
+  },
+  "weapons": {
+    "shoot": "left mouse",
+    "aim": "right mouse"
+  }
+}
